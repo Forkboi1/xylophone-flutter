@@ -27,7 +27,7 @@ class _MainAppState extends State<MainApp> {
           ),
           backgroundColor: Theme.of(context).primaryColorDark,
         ),
-        body: const Center(
+        body: Center(
           child: AppColors(),
         ),
       ),

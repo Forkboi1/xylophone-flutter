@@ -1,17 +1,19 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'creat_color_bar.dart';
 
 class AppColors extends StatelessWidget {
 
   
-  const AppColors({
+  AppColors({
     super.key,
   });
 
   static const _colorTypes = [Colors.red, Colors.orange, Colors.amberAccent, Colors.green, Colors.lightGreen, Colors.lightBlue, Colors.purple];
-  
+  final FocusNode _focusNode = FocusNode();
+
   static void playSound(Color containerColor) {
 
     final player = AudioPlayer();
@@ -34,12 +36,23 @@ class AppColors extends StatelessWidget {
     }
   }
 
+  void _handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      // Handle key down events
+      print('Key pressed: ${event.logicalKey}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (var c in _colorTypes) CreatColorBar(chosenColor: c,)
-      ],
+    return KeyboardListener(
+      focusNode: _focusNode,
+      onKeyEvent: _handleKeyEvent,
+      child: Column(
+        children: [
+          for (var c in _colorTypes) CreatColorBar(chosenColor: c,)
+        ],
+      ),
     );
   }
 }
